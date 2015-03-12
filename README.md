@@ -25,7 +25,7 @@ How To?
 var map = new ol.Map({
   target: 'map',
   layers: [new ol.layer.Tile({
-    source: new ol.source.GMapsTMS()
+    source: ol.source.GMapsTMS() // Don't use the new key, its not a object
   })],
   view: new ol.View({
     center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
@@ -40,7 +40,7 @@ or
 var map = new ol.Map({
   target: 'map',
   layers: [new ol.layer.Tile({
-    source: new ol.source.GMapsTMS({layer: 'satellite' /*map|terrain|hybrid|terrain+*/})
+    source: ol.source.GMapsTMS({layer: 'satellite' /*map|terrain|hybrid|terrain+*/}) // Don't use the new key, its not a object
   })],
   view: new ol.View({
     center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
@@ -57,6 +57,8 @@ Options
 | `layer`       | string | `map`     | `map`, `terrain`, `terrain+`, `hybrid` and `satellite` | Here you can choose the type of base map |
 | `resolutions` | array  | `[28..1]` | n array positions                                      | Some image resolutions                   |
 | `origin`      | array  | `[0,0]`   | `[x,y]`                                                | The center map origin                    |
+
+###Returns `ol.source.XYZ`
 
 References
 ----------
