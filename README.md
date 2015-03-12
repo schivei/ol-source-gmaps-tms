@@ -1,2 +1,1 @@
-# openlayers3-google-tile
-The Google Maps TMS Layer for Openlayers 3
+# Google Maps Tiles for OpenLayers 3
