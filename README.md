@@ -22,29 +22,36 @@ How To?
 -------
 
 ```javascript
+var tms_origin = [
+  -15.798889,
+  -47.866667
+];
+
+// [28..1]
+var tms_resolutions = (function(){is=[];for(i=28;i>0;i--)is.push(i);return is;})();
+
+var tms_bounds = [
+  -8235477.040058561,
+  -3995814.9371818537,
+  -3876498.621542629,
+  585165.7013383668
+];
+
+// GMaps projection
+proj = ol.proj.get 'EPSG:900913'
+proj.setExtent tms_bounds
+
 var map = new ol.Map({
   target: 'map',
   layers: [new ol.layer.Tile({
-    source: ol.source.GMapsTMS() // Don't use the new key, its not a object
+    source: ol.source.GMapsTMS(/*{layer: 'satellite'}*/) // Don't use the new key, its not a object
   })],
   view: new ol.View({
     center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
-    zoom: 4
-  })
-});
-```
-
-or
-
-```javascript
-var map = new ol.Map({
-  target: 'map',
-  layers: [new ol.layer.Tile({
-    source: ol.source.GMapsTMS({layer: 'satellite' /*map|terrain|hybrid|terrain+*/}) // Don't use the new key, its not a object
-  })],
-  view: new ol.View({
-    center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
-    zoom: 4
+    zoom: 4,
+    maxZoom: tms_resolutions[0],
+    minZoom: 0.001,
+    projection: proj.getCode()
   })
 });
 ```
