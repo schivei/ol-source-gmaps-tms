@@ -44,7 +44,7 @@ proj.setExtent tms_bounds
 var map = new ol.Map({
   target: 'map',
   layers: [new ol.layer.Tile({
-    source: ol.source.GMapsTMS(/*{layer: 'satellite'}*/) // Don't use the new key, its not a object
+    source: ol.source.GMapsTMS(/*{layer: 'satellite'}*/) // Don't use the new key, it's not an object
   })],
   view: new ol.View({
     center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
