@@ -64,6 +64,7 @@ Options
 | `layer`       | string | `map`     | `map`, `terrain`, `terrain+`, `hybrid` and `satellite` | Here you can choose the type of base map |
 | `resolutions` | array  | `[28..1]` | n array positions                                      | Some image resolutions                   |
 | `origin`      | array  | `[0,0]`   | `[x,y]`                                                | The center map origin                    |
+| `ol_version`      | string  | `v3.7.0+`   | ``                                                | OL3 version                    |
 
 ###Returns `ol.source.XYZ`
 
