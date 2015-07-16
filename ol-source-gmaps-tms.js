@@ -1,6 +1,6 @@
 (function() {
   ol.source.GMapsTMS = function(options) {
-    var defaults, origin, resolutions, type, _i, _results;
+    var defaults, origin, resolutions, type, _i, _results,ol_version;
     resolutions = (function() {
       _results = [];
       for (_i = 28; _i >= 1; _i--){ _results.push(_i); }
@@ -12,6 +12,7 @@
       resolutions: resolutions,
       origin: origin
     };
+    ol_version =  'v3.7.0+';
     if (typeof options === 'undefined' || !options) {
       options = defaults;
     }
@@ -23,6 +24,9 @@
     }
     if (typeof options.origin === 'undefined' || !options.origin) {
       options.origin = origin;
+    }
+    if (typeof options.ol_version === 'undefined' || !options.ol_version) {
+      options.ol_version = ol_version;
     }
     type = 'm';
     switch (options.layer) {
@@ -44,23 +48,29 @@
       default:
         options.layer = 'map';
     }
-    return new ol.source.XYZ({
-      crossOrigin: null,
-      tileUrlFunction: function(coord) {
-        var x, y, z;
-        if (!coord) {
-          return '';
-        }
-        z = coord[0];
-        x = coord[1];
-        y = coord[2];
-        return "http://mt.google.com/vt/lyrs=" + type + "&x=" + x + "&y=" + y + "&z=" + z;
-      },
-      tileGrid: new ol.tilegrid.TileGrid({
-        origin: options.origin,
-        resolutions: options.resolutions
-      })
-    });
+    if (options.ol_version === 'v3.7.0+') {
+	return new ol.source.XYZ({
+		url: 'http://mt.google.com/vt/lyrs=' + type + '&x={x}&y={y}&z={z}'
+	});
+    } else {
+	return new ol.source.XYZ({
+	      crossOrigin: null,
+	      tileUrlFunction: function(coord) {
+	        var x, y, z;
+	        if (!coord) {
+	          return '';
+	        }
+	        z = coord[0];
+	        x = coord[1];
+	        y = coord[2];
+	        return "http://mt.google.com/vt/lyrs=" + type + "&x=" + x + "&y=" + y + "&z=" + z;
+	      },
+	      tileGrid: new ol.tilegrid.TileGrid({
+	        origin: options.origin,
+	        resolutions: options.resolutions
+	      })
+	    });
+    }
   };
 
 }).call(this);

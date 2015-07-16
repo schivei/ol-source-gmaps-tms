@@ -5,6 +5,7 @@ ol.source.GMapsTMS = (options) ->
     layer: 'map'
     resolutions: resolutions
     origin: origin
+  ol_version = 'v3.7.0+'
 
   if typeof options is 'undefined' or !options
     options = defaults
@@ -18,6 +19,9 @@ ol.source.GMapsTMS = (options) ->
   if typeof options.origin is 'undefined' or !options.origin
     options.origin = origin
 
+  if typeof options.ol_version is 'undefined' or !options.ol_version
+    options.ol_version = ol_version
+
   type = 'm'
 
   switch options.layer
@@ -28,6 +32,10 @@ ol.source.GMapsTMS = (options) ->
     when 'hybrid' then type = 'y'
     else options.layer = 'map'
 
+  if options.ol_version == 'v3.7.0+' then
+  return new ol.source.XYZ
+	url: 'http://mt.google.com/vt/lyrs=' + type + '&x={x}&y={y}&z={z}'
+  else
   return new ol.source.XYZ
     crossOrigin     : null
     tileUrlFunction : (coord) ->
