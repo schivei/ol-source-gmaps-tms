@@ -32,18 +32,18 @@ ol.source.GMapsTMS = (options) ->
     when 'hybrid' then type = 'y'
     else options.layer = 'map'
 
-  if options.ol_version == 'v3.7.0+' then
-  return new ol.source.XYZ
-	url: 'http://mt.google.com/vt/lyrs=' + type + '&x={x}&y={y}&z={z}'
+  if options.ol_version == 'v3.7.0+'
+    return new ol.source.XYZ
+      url: 'http://mt.google.com/vt/lyrs=' + type + '&x={x}&y={y}&z={z}'
   else
-  return new ol.source.XYZ
-    crossOrigin     : null
-    tileUrlFunction : (coord) ->
-      return '' if !coord
-      z = coord[0]
-      x = coord[1]
-      y = coord[2]
-      return "http://mt.google.com/vt/lyrs=#{type}&x=#{x}&y=#{y}&z=#{z}"
-    tileGrid: new ol.tilegrid.TileGrid
-      origin: options.origin
-      resolutions: options.resolutions
+    return new ol.source.XYZ
+      crossOrigin     : null
+      tileUrlFunction : (coord) ->
+        return '' if !coord
+        z = coord[0]
+        x = coord[1]
+        y = coord[2]
+        return "http://mt.google.com/vt/lyrs=#{type}&x=#{x}&y=#{y}&z=#{z}"
+      tileGrid: new ol.tilegrid.TileGrid
+        origin: options.origin
+        resolutions: options.resolutions
